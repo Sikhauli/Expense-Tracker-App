@@ -3,7 +3,6 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.org.jetbrains.kotlin.kapt)
   id("com.google.dagger.hilt.android")
-
 }
 
 android {
@@ -51,18 +50,21 @@ android {
 
 dependencies {
 
-  implementation(libs.hilt.android)
-  kapt(libs.hilt.android.compiler)
+  implementation(libs.androidx.material.icons.core)
+  implementation(libs.androidx.material.icons.extended)
 
+  implementation(libs.landscapist.coil3)
+  implementation(libs.hilt.android)
+  implementation(libs.androidx.material3.android)
+  kapt(libs.hilt.android.compiler)
   implementation(libs.androidx.room.runtime)
   kapt(libs.androidx.room.compiler)
   implementation(libs.androidx.room.ktx)
-
+  implementation (libs.coil.compose.v100)
+  implementation(libs.coil.compose)
   implementation(libs.gson)
-
   implementation(libs.androidx.lifecycle.livedata.ktx)
   implementation(libs.androidx.lifecycle.viewmodel.ktx)
-
   implementation(libs.androidx.core.ktx)
   implementation(libs.androidx.lifecycle.runtime.ktx)
   implementation(libs.androidx.activity.compose)
@@ -70,7 +72,6 @@ dependencies {
   implementation(libs.androidx.ui)
   implementation(libs.androidx.ui.graphics)
   implementation(libs.androidx.ui.tooling.preview)
-  implementation(libs.androidx.material3)
   testImplementation(libs.junit)
   androidTestImplementation(libs.androidx.junit)
   androidTestImplementation(libs.androidx.espresso.core)
