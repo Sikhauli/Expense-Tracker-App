@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.Modifier.Companion
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.example.expense_tracker_app.data.ActivityCardData
+import com.example.expense_tracker_app.ui.composable.BottomSheetDemo
 import com.example.expense_tracker_app.ui.composable.home.ProfileCompletion
 import com.example.expense_tracker_app.ui.composable.home.RowScrollView
 import com.example.expense_tracker_app.ui.composable.home.UserInfo
@@ -21,7 +24,7 @@ import com.example.expense_tracker_app.ui.composable.home.Wallet
 import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 
 @Composable
-fun Home(modifier: Modifier = Modifier) {
+fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
   Column(
     modifier = modifier
       .fillMaxSize()
@@ -29,21 +32,23 @@ fun Home(modifier: Modifier = Modifier) {
   ) {
     UserInfo()
     Wallet()
-    ActivitiesCategoryRow()
+    ActivitiesCategoryRow(navController)
     ProfileCompletion()
     ScrollableRecentActivityList()
+//    BottomSheetDemo()
   }
 }
 
 @Composable
-fun ActivitiesCategoryRow() {
+fun ActivitiesCategoryRow(navController: NavHostController) {
   Row(
     modifier = Modifier
-      .padding(horizontal = 10.dp)
+      .padding(vertical = 10.dp)
       .horizontalScroll(rememberScrollState()),
     horizontalArrangement = Arrangement.spacedBy(8.dp),
   ){
     RowScrollView(
+      navController = navController,
       items = ActivityCardData,
       maxCharacters = 10,
       modifier = Modifier
@@ -56,6 +61,6 @@ fun ActivitiesCategoryRow() {
 @Composable
 fun HomePreview() {
   ExpensetrackerappTheme {
-    Home()
+//    Home()
   }
 }

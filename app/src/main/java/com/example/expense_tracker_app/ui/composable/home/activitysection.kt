@@ -2,17 +2,13 @@ package com.example.expense_tracker_app.ui.composable.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material3.Icon
@@ -25,11 +21,11 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import com.example.expense_tracker_app.data.ActivityCard
 import com.example.expense_tracker_app.ui.screens.home.Home
 import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
@@ -39,6 +35,7 @@ import com.skydoves.landscapist.coil3.CoilImage
 
 @Composable
 fun RowItems(
+  navController: NavHostController,
   modifier: Modifier = Modifier,
   item: ActivityCard,
   maxCharacters: Int = 10,
@@ -52,11 +49,14 @@ fun RowItems(
   Box(
     modifier = modifier
       .fillMaxWidth()
+      .clickable {
+        navController.navigate("details/${item.id}")
+      }
   ) {
     Column(
       modifier = Modifier
         .size(100.dp, 100.dp)
-        .border(2.dp, MaterialTheme.colorScheme.inversePrimary, shape = RoundedCornerShape(5.dp)),
+        .border(1.dp, Color.LightGray, shape = RoundedCornerShape(5.dp)),
       verticalArrangement = Arrangement.Top,
     ) {
       Column(
@@ -90,16 +90,19 @@ fun RowItems(
           Text(
             text = item.availableAmount.toString(),
             fontSize = 8.sp,
+            fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleSmall
           )
           Text(
             text = " / ",
             fontSize = 12.sp,
+            fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleSmall
           )
           Text(
             text = item.budget.toString(),
             fontSize = 8.sp,
+            fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleSmall
           )
         }
@@ -113,6 +116,7 @@ fun RowItems(
           Text(
             text = "Details",
             fontSize = 8.sp,
+            fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.bodyLarge
           )
           Icon(
@@ -128,6 +132,7 @@ fun RowItems(
 
 @Composable
 fun RowScrollView(
+  navController : NavHostController,
   modifier: Modifier = Modifier,
   items: List<ActivityCard>,
   maxCharacters: Int = 10,
@@ -135,6 +140,7 @@ fun RowScrollView(
   items.forEach { item ->
     RowItems(
       item = item,
+      navController = navController,
       maxCharacters = maxCharacters
     )
   }
@@ -144,6 +150,6 @@ fun RowScrollView(
 @Composable
 fun HomePreview() {
   ExpensetrackerappTheme {
-    Home()
+//    Home(navController)
   }
 }

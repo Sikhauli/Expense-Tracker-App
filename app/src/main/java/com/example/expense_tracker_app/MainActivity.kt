@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.expense_tracker_app.ui.MainScreen
 import com.example.expense_tracker_app.ui.composable.home.UserInfo
+import com.example.expense_tracker_app.ui.navigationMap.NavigationMap
 import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       ExpensetrackerappTheme {
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-            MainScreen()
+          NavigationMap()
         }
       }
     }

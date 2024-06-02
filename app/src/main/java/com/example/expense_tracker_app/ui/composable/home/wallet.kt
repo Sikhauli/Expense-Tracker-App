@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,8 +26,7 @@ import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 fun Wallet() {
   Row(
     modifier = Modifier
-      .fillMaxWidth()
-      .padding(8.dp),
+      .fillMaxWidth(),
     horizontalArrangement = Arrangement.SpaceBetween,
     verticalAlignment = Alignment.CenterVertically
   ) {
@@ -39,27 +39,28 @@ fun Wallet() {
       Text(
         text = "My Wallet",
         fontSize = 20.sp,
-        fontWeight = FontWeight.ExtraBold,
+        fontFamily = FontFamily.Serif,
+        fontWeight = FontWeight.SemiBold,
         style = MaterialTheme.typography.labelLarge
       )
       Spacer(modifier = Modifier.padding(2.dp) )
       Text(
         text = "R50,000 (Total in 6 wallets)",
         fontSize = 14.sp,
-        fontWeight = FontWeight.ExtraBold,
+        fontFamily = FontFamily.Serif,
         style = MaterialTheme.typography.titleSmall
       )
     }
     Box(
       modifier = Modifier
         .size(30.dp)
-        .background(Color.Transparent, shape = RoundedCornerShape(30.dp))
-        .border(2.dp, Color.Gray, RoundedCornerShape(4.dp)),
+        .background(Color.Transparent, shape = RoundedCornerShape(4.dp))
+        .border(1.dp, Color.LightGray, RoundedCornerShape(4.dp)),
       contentAlignment = Alignment.Center
     ){
       Image(
-        painter = rememberImagePainter("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGxI3c4Cb1WKJeeOBfTI2FdvEDdMphqCv0cBl0vQ86TXejPyurjunggu7K9A&s"),
-        contentDescription = "Example Image",
+        painter = rememberImagePainter("https://static.vecteezy.com/system/resources/previews/010/160/090/non_2x/add-icon-sign-symbol-design-free-png.png"),
+        contentDescription = "Add Image",
         modifier = Modifier
           .fillMaxSize()
       )

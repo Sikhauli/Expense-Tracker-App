@@ -19,8 +19,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.expense_tracker_app.ui.composable.progressbar.CircularProgressBarSample
-import com.example.expense_tracker_app.ui.screens.home.Home
 import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 
 @Composable
@@ -28,9 +26,8 @@ fun ProfileCompletion(){
    Row(
      modifier = Modifier
        .fillMaxWidth()
-       .padding(8.dp)
-       .border(2.dp,  MaterialTheme.colorScheme.inversePrimary, shape = MaterialTheme.shapes.medium)
-       .background(Color.LightGray, shape = MaterialTheme.shapes.medium),
+       .border(1.dp,  Color.LightGray, shape = MaterialTheme.shapes.medium)
+       .background(Color.Transparent, shape = MaterialTheme.shapes.medium),
      horizontalArrangement = Arrangement.SpaceBetween,
      ){
     Box(
@@ -42,7 +39,7 @@ fun ProfileCompletion(){
       Text(
         text = "Complete your data for account verification",
         fontSize = 26.sp,
-        fontFamily = FontFamily.SansSerif,
+        fontFamily = FontFamily.Serif,
         style = MaterialTheme.typography.displaySmall.copy(
           lineHeight = 26.sp
         ),
