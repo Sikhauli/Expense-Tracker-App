@@ -58,6 +58,7 @@ dependencies {
   implementation(libs.landscapist.coil3)
   implementation(libs.hilt.android)
   implementation(libs.androidx.material3.android)
+  implementation(libs.androidx.tools.core)
   kapt(libs.hilt.android.compiler)
   implementation(libs.androidx.room.runtime)
   kapt(libs.androidx.room.compiler)

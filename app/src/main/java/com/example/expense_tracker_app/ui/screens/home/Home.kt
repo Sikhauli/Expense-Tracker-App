@@ -11,31 +11,31 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.Modifier.Companion
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.expense_tracker_app.data.ActivityCardData
-import com.example.expense_tracker_app.ui.composable.BottomSheetDemo
+import com.example.expense_tracker_app.ui.composable.BottomSheetContent
 import com.example.expense_tracker_app.ui.composable.home.ProfileCompletion
 import com.example.expense_tracker_app.ui.composable.home.RowScrollView
 import com.example.expense_tracker_app.ui.composable.home.UserInfo
 import com.example.expense_tracker_app.ui.composable.home.Wallet
 import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
+import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @Composable
-fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
+fun Home(modifier: Modifier = Modifier, navController: NavHostController, bottomSheetViewModel: BottomSheetViewModel) {
   Column(
     modifier = modifier
       .fillMaxSize()
       .padding(8.dp)
   ) {
     UserInfo()
-    Wallet()
+    Wallet(bottomSheetViewModel)
     ActivitiesCategoryRow(navController)
     ProfileCompletion()
     ScrollableRecentActivityList()
-//    BottomSheetDemo()
+    BottomSheetContent(bottomSheetViewModel)
   }
 }
 

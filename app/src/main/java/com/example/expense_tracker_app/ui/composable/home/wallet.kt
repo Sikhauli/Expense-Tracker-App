@@ -3,8 +3,8 @@ package com.example.expense_tracker_app.ui.composable.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,10 +19,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
-
+import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @Composable
-fun Wallet() {
+fun Wallet(bottomSheetViewModel: BottomSheetViewModel) {
   Row(
     modifier = Modifier
       .fillMaxWidth(),
@@ -55,6 +54,7 @@ fun Wallet() {
       modifier = Modifier
         .size(30.dp)
         .background(Color.Transparent, shape = RoundedCornerShape(4.dp))
+        .clickable { bottomSheetViewModel.showSheet() }
         .border(1.dp, Color.LightGray, RoundedCornerShape(4.dp)),
       contentAlignment = Alignment.Center
     ){
@@ -72,6 +72,6 @@ fun Wallet() {
 @Composable
 fun WalletPreview() {
   ExpensetrackerappTheme {
-    Wallet()
+//    Wallet(bottomSheetViewModel)
   }
 }
