@@ -13,9 +13,7 @@ import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 @Composable
 fun MainScreen(navController: NavHostController) {
 
-  val bottomSheetViewModel: BottomSheetViewModel = viewModel()
-
   Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-    Home(modifier = Modifier.padding(innerPadding), navController = navController, bottomSheetViewModel)
+    Home(modifier = Modifier.padding(innerPadding), navController = navController)
   }
 }

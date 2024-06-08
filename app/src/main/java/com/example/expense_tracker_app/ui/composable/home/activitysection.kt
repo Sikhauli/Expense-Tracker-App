@@ -22,13 +22,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import com.example.expense_tracker_app.data.ActivityCard
-import com.example.expense_tracker_app.ui.screens.home.Home
-import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 import com.example.expense_tracker_app.ui.utils.LimitedText
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
@@ -40,9 +38,10 @@ fun RowItems(
   item: ActivityCard,
   maxCharacters: Int = 10,
 ) {
+  val bundle = bundleOf("activityCard" to item)
 
   val gradientBrush = Brush.linearGradient(
-    colors = listOf(Color.Magenta, Color.Cyan),
+    colors = listOf(Color.Gray, Color.LightGray),
     tileMode = TileMode.Clamp
   )
 
@@ -50,7 +49,7 @@ fun RowItems(
     modifier = modifier
       .fillMaxWidth()
       .clickable {
-        navController.navigate("details/${item.id}")
+        navController.navigate("details")
       }
   ) {
     Column(
@@ -132,9 +131,8 @@ fun RowItems(
 
 @Composable
 fun RowScrollView(
-  navController : NavHostController,
-  modifier: Modifier = Modifier,
-  items: List<ActivityCard>,
+  navController: NavHostController,
+  items:List<ActivityCard>,
   maxCharacters: Int = 10,
 ) {
   items.forEach { item ->
@@ -146,10 +144,3 @@ fun RowScrollView(
   }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun HomePreview() {
-  ExpensetrackerappTheme {
-//    Home(navController)
-  }
-}

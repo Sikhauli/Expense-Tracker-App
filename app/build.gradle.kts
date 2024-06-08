@@ -3,6 +3,7 @@ plugins {
   alias(libs.plugins.jetbrains.kotlin.android)
   alias(libs.plugins.org.jetbrains.kotlin.kapt)
   id("com.google.dagger.hilt.android")
+  id("kotlin-parcelize")
 }
 
 android {
@@ -39,7 +40,7 @@ android {
     compose = true
   }
   composeOptions {
-    kotlinCompilerExtensionVersion = "1.5.1"
+    kotlinCompilerExtensionVersion = "1.5.14"
   }
   packaging {
     resources {
@@ -54,6 +55,12 @@ dependencies {
   implementation(libs.androidx.material.icons.extended)
 
   implementation(libs.androidx.navigation.compose)
+
+  implementation(libs.androidx.room.runtime.v242)
+  kapt(libs.androidx.room.compiler.v242)
+  implementation(libs.androidx.room.ktx.v242)
+
+  implementation(libs.androidx.hilt.navigation.compose)
 
   implementation(libs.landscapist.coil3)
   implementation(libs.hilt.android)

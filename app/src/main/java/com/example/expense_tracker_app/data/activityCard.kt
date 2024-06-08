@@ -1,12 +1,16 @@
 package com.example.expense_tracker_app.data
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class ActivityCard(
-  val id: Number,
+  val id: Int,
   val img: String,
   val activityName: String,
   val availableAmount: Number,
   val budget: Number
-)
+) : Parcelable
 
 val ActivityCardData = listOf(
   ActivityCard(1, "https://e-cdn-images.dzcdn.net/images/artist/5d9f16fae9f8cd9f2bfd9103f08079a3/500x500-000000-80-0-0.jpg", "Fuel", 1500, 5000  ),

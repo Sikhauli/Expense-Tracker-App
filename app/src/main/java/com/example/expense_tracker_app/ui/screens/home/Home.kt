@@ -6,36 +6,33 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
 import com.example.expense_tracker_app.data.ActivityCardData
-import com.example.expense_tracker_app.ui.composable.BottomSheetContent
 import com.example.expense_tracker_app.ui.composable.home.ProfileCompletion
 import com.example.expense_tracker_app.ui.composable.home.RowScrollView
 import com.example.expense_tracker_app.ui.composable.home.UserInfo
 import com.example.expense_tracker_app.ui.composable.home.Wallet
-import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
-import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @Composable
-fun Home(modifier: Modifier = Modifier, navController: NavHostController, bottomSheetViewModel: BottomSheetViewModel) {
+fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
+
+
   Column(
     modifier = modifier
       .fillMaxSize()
       .padding(8.dp)
   ) {
     UserInfo()
-    Wallet(bottomSheetViewModel)
+    Wallet()
     ActivitiesCategoryRow(navController)
     ProfileCompletion()
     ScrollableRecentActivityList()
-    BottomSheetContent(bottomSheetViewModel)
   }
 }
 
@@ -50,17 +47,7 @@ fun ActivitiesCategoryRow(navController: NavHostController) {
     RowScrollView(
       navController = navController,
       items = ActivityCardData,
-      maxCharacters = 10,
-      modifier = Modifier
-        .fillMaxWidth()
+      maxCharacters = 10
     )
-  }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HomePreview() {
-  ExpensetrackerappTheme {
-//    Home()
   }
 }

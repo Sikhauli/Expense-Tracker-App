@@ -22,7 +22,7 @@ import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @Composable
-fun Wallet(bottomSheetViewModel: BottomSheetViewModel) {
+fun Wallet() {
   Row(
     modifier = Modifier
       .fillMaxWidth(),
@@ -54,7 +54,7 @@ fun Wallet(bottomSheetViewModel: BottomSheetViewModel) {
       modifier = Modifier
         .size(30.dp)
         .background(Color.Transparent, shape = RoundedCornerShape(4.dp))
-        .clickable { bottomSheetViewModel.showSheet() }
+//        .clickable { bottomSheetViewModel.showSheet() }
         .border(1.dp, Color.LightGray, RoundedCornerShape(4.dp)),
       contentAlignment = Alignment.Center
     ){

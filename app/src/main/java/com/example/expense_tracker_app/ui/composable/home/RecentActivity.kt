@@ -87,7 +87,7 @@ fun RecentActivityItem(
 
 @Composable
 fun ScrollableRecentActivityList() {
-  Column() {
+  Column{
     val scrollState = rememberScrollState()
     Row(
       modifier = Modifier
