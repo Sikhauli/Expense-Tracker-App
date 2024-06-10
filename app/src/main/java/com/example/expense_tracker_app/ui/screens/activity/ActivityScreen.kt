@@ -7,6 +7,6 @@ import com.example.expense_tracker_app.ui.composable.activity.ActivityPage
 import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @Composable
-fun ActivityPageMain(bottomSheetViewModel: BottomSheetViewModel, navController: NavController?, activityCard: ActivityCard?) {
-  ActivityPage(bottomSheetViewModel, navController, activityCard)
+fun ActivityPageMain(bottomSheetViewModel: BottomSheetViewModel, navController: NavController?, itemId: String) {
+  ActivityPage(bottomSheetViewModel, navController, itemId)
 }

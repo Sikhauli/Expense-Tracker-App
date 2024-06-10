@@ -38,10 +38,9 @@ fun RowItems(
   item: ActivityCard,
   maxCharacters: Int = 10,
 ) {
-  val bundle = bundleOf("activityCard" to item)
 
   val gradientBrush = Brush.linearGradient(
-    colors = listOf(Color.Gray, Color.LightGray),
+    colors = listOf(MaterialTheme.colorScheme.inverseSurface, MaterialTheme.colorScheme.inverseOnSurface),
     tileMode = TileMode.Clamp
   )
 
@@ -49,7 +48,7 @@ fun RowItems(
     modifier = modifier
       .fillMaxWidth()
       .clickable {
-        navController.navigate("details")
+        navController.navigate("details/${item.id}")
       }
   ) {
     Column(
@@ -63,7 +62,6 @@ fun RowItems(
           .fillMaxSize()
           .padding(5.dp)
       ) {
-
         Column(
           modifier = Modifier
             .size(30.dp)

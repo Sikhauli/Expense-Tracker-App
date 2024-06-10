@@ -5,6 +5,15 @@ import com.example.expense_tracker_app.database.BudgetDao
 import javax.inject.Inject
 
 class BudgetRepository @Inject constructor(private val budgetDao: BudgetDao) {
+
+  suspend fun updateAvailableAmountAndAddBudget(id: Int, newAmount: Double, budget: Budget) {
+    budgetDao.updateCardBalanceAndInsertBudget(id, newAmount, budget)
+  }
+
+  suspend fun updateBudgetAmountAndAddBudget(id: Int, newAmount: Double, budget: Budget) {
+    budgetDao.updateCardBudgetAndInsertBudget(id, newAmount, budget)
+  }
+
   suspend fun getBudgetById(id: Int): Budget? {
     return budgetDao.getBudgetById(id)
   }
@@ -15,9 +24,5 @@ class BudgetRepository @Inject constructor(private val budgetDao: BudgetDao) {
 
   suspend fun insertBudget(budget: Budget) {
     budgetDao.insertBudget(budget)
-  }
-
-  suspend fun updateBudget(budget: Budget) {
-    budgetDao.updateBudget(budget)
   }
 }

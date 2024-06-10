@@ -13,10 +13,10 @@ data class ActivityCard(
 ) : Parcelable
 
 val ActivityCardData = listOf(
-  ActivityCard(1, "https://e-cdn-images.dzcdn.net/images/artist/5d9f16fae9f8cd9f2bfd9103f08079a3/500x500-000000-80-0-0.jpg", "Fuel", 1500, 5000  ),
-  ActivityCard(2, "https://e-cdn-images.dzcdn.net/images/artist/cf9f43ee1f0d8d3b498a155f4988087f/500x500-000000-80-0-0.jpg", "Grocery", 2500, 5500),
-  ActivityCard(3, "https://lastfm.freetls.fastly.net/i/u/770x0/434a922ecca5474f1f9d6bbcc3a1050c.jpg#434a922ecca5474f1f9d6bbcc3a1050c","Party",6300, 10000),
-  ActivityCard(4, "https://t2.genius.com/unsafe/300x300/https%3A%2F%2Fimages.genius.com%2F58f44c045af8c84db70abf4f2d2c6e1f.1000x1000x1.jpg","Orders",1700, 2500),
-  ActivityCard(5, "https://t2.genius.com/unsafe/252x252/https%3A%2F%2Fimages.genius.com%2F130420153ed8ff63bab74dd483030456.1000x1000x1.png","Travel",17734, 25000),
-  ActivityCard(6, "https://t2.genius.com/unsafe/252x252/https%3A%2F%2Fimages.genius.com%2Fd97224e10b88dcd05ed18b87366461c8.600x600x1.jpg","More", 10000, 8890),
+  ActivityCard(1, "https://e7.pngegg.com/pngimages/204/398/png-clipart-volkswagen-beetle-vintage-car-automotive-design-sketch-car-compact-car-car-thumbnail.png", "Fuel", 1500, 5000  ),
+  ActivityCard(2, "https://e7.pngegg.com/pngimages/138/773/png-clipart-vegetable-food-tomato-grocery-store-salad-fresh-fruits-and-vegetables-bunch-of-vegetables-natural-foods-leaf-vegetable-thumbnail.png", "Grocery", 2500, 5500),
+  ActivityCard(3, "https://e7.pngegg.com/pngimages/424/569/png-clipart-party-carnival-crowd-silhouette-silhouette-of-party-holidays-public-relations-thumbnail.png","Party",6300, 10000),
+  ActivityCard(4, "https://e7.pngegg.com/pngimages/269/964/png-clipart-pizza-delivery-restaurant-online-food-ordering-fast-delivery-food-logo-thumbnail.png","Orders",1700, 2500),
+  ActivityCard(5, "https://e7.pngegg.com/pngimages/68/466/png-clipart-illustration-of-character-traveling-travel-tourism-euclidean-global-travel-backpack-computer-wallpaper-thumbnail.png","Travel",17734, 25000),
+  ActivityCard(6, "https://e1.pngegg.com/pngimages/883/804/png-clipart-more-gudetama-thumbnail.png","More", 10000, 8890),
 )

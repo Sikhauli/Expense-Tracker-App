@@ -4,8 +4,7 @@ import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.android.parcel.Parcelize
-import java.util.Date
-@Parcelize
+
 @Entity(tableName = "budgets")
 data class Budget(
   @PrimaryKey(autoGenerate = true) val id: Int? = 0,
@@ -15,4 +14,4 @@ data class Budget(
   val date: String,
   val name: String,
   val type: String
-) : Parcelable
+)

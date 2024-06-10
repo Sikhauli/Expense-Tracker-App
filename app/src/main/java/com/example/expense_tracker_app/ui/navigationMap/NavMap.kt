@@ -16,9 +16,11 @@ fun NavigationMap() {
   val bottomSheetViewModel: BottomSheetViewModel = hiltViewModel()
   NavHost(navController = navController, startDestination = "home") {
     composable("home") { MainScreen(navController) }
-    composable("details") { backStackEntry ->
-      val activityCard = backStackEntry.arguments?.getParcelable<ActivityCard>("activityCard")
-      ActivityPageMain(bottomSheetViewModel, navController, activityCard)
+    composable("details/{itemId}") { backStackEntry ->
+      val itemId = backStackEntry.arguments?.getString("itemId")
+      if (itemId != null) {
+        ActivityPageMain(bottomSheetViewModel, navController, itemId)
+      }
     }
   }
 }

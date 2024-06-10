@@ -26,7 +26,6 @@ import java.util.Locale
 @Composable
 fun BottomSheetContent(
   bottomSheetViewModel: BottomSheetViewModel = viewModel(),
-  activityCard: ActivityCard
 ) {
   val showBottomSheet by bottomSheetViewModel.showBottomSheet.collectAsState()
   val isForSpend by bottomSheetViewModel.isForSpend.collectAsState()
@@ -56,7 +55,6 @@ fun BottomSheetContent(
     }
   }
 
-  println("activityCard: $activityCard")
   println("date: $date")
 
   val isImeVisible = WindowInsets.isImeVisible
@@ -87,20 +85,14 @@ fun BottomSheetContent(
           OutlinedTextField(
             value = amount,
             onValueChange = { amount = it },
-            label = { Text("Amount") },
+            label = { Text("Spending Amount") },
             modifier = Modifier.fillMaxWidth()
           )
         } else {
           OutlinedTextField(
             value = budget,
             onValueChange = { budget = it },
-            label = { Text("Budget") },
-            modifier = Modifier.fillMaxWidth()
-          )
-          OutlinedTextField(
-            value = availableAmount,
-            onValueChange = { availableAmount = it },
-            label = { Text("Available Amount") },
+            label = { Text("Budget Deposit") },
             modifier = Modifier.fillMaxWidth()
           )
         }
@@ -114,12 +106,14 @@ fun BottomSheetContent(
               if (isForSpend) {
                 val newSpend = date?.let {
                   Budget(
-                    idd = activityCard.id,
+//                    idd = activityCard.id,
                     amount = budget.toDouble(),
                     availableAmount = availableAmount.toDouble(),
                     date = it.toString(),
                     name = "Spend",
-                    type = activityCard.activityName
+                    type = "gvhbjnk",
+                    idd = 1
+//                    type = activityCard.activityName
                   )
                 }
                 if (newSpend != null) {
@@ -128,12 +122,14 @@ fun BottomSheetContent(
               } else {
                 val newBudget = date?.let {
                   Budget(
-                    idd = activityCard.id,
+//                    idd = activityCard.id,
                     amount = budget.toDouble(),
                     availableAmount = availableAmount.toDouble(),
                     date = it.toString(),
-                    name = "Deposit",
-                    type = activityCard.activityName
+                    name = "New Deposit",
+                    type = "gvhbjnk",
+                    idd = 1
+//                    type = activityCard.activityName
                   )
                 }
                 if (newBudget != null) {

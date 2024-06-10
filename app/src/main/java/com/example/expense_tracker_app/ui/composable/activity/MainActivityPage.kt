@@ -44,15 +44,16 @@ import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavController?, activityCard: ActivityCard?) {
+fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavController?, itemId: String) {
   val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-  println("activityCard: $activityCard")
+  println("itemId: $itemId")
 
   Scaffold(
     topBar = {
       TopAppBar(
-        title = { Text(text = "") },
+//        title = { Text(text = "${activityCard?.activityName} Wallet") },
+        title = {Text(text=  "title here")},
         navigationIcon = {
           IconButton(onClick = { navController?.navigateUp() }) {
             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
@@ -73,26 +74,21 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
       ) {
         Column(
           modifier = Modifier
-            .fillMaxWidth()
-            .padding(top = 8.dp),
+            .fillMaxWidth(),
           verticalArrangement = Arrangement.Center,
           horizontalAlignment = Alignment.CenterHorizontally
         ) {
           Text(
-            text = "${activityCard?.activityName} Wallet",
-            fontWeight = FontWeight.W400,
-            fontFamily = FontFamily.Serif,
-            style = MaterialTheme.typography.titleMedium
-          )
-          Text(
-            text = "R${activityCard?.availableAmount}",
+//            text = "R${activityCard?.availableAmount}",
+            text = "100000",
             fontSize = 70.sp,
             fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleLarge
           )
           Text(
-            text = "Budget in one month R${activityCard?.budget}",
+//            text = "Budget in one month R${activityCard?.budget}",
+            text = "Budget in one month",
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.W300,
           )
@@ -122,7 +118,8 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
             modifier = Modifier.padding(vertical = 6.dp)
           )
           Text(
-            text = "A wallet to manage expenses for purchasing ${activityCard?.activityName} in one month",
+//            text = "A wallet to manage expenses for purchasing ${activityCard?.activityName} in one month",
+            text = "",
             fontFamily = FontFamily.Serif,
             fontSize = 12.sp,
             style = MaterialTheme.typography.displaySmall.copy(
@@ -152,14 +149,15 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
             },
             modifier = Modifier
               .size(160.dp, 60.dp)
-              .border(2.dp, Color.Gray, shape = RoundedCornerShape(4.dp))
+              .border(1.dp, Color.Gray, shape = RoundedCornerShape(4.dp))
               .background(Color.LightGray, shape = RoundedCornerShape(4.dp)),
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent)
           ) {
             Text(
               text = "Edit Budget",
               fontSize = 20.sp,
-              color = Color.Black
+              fontFamily = FontFamily.Serif,
+              color = MaterialTheme.colorScheme.onPrimary
             )
           }
           Spacer(modifier = Modifier.width(5.dp))
@@ -181,9 +179,7 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
             )
           }
         }
-        if (activityCard != null) {
-          BottomSheetContent(bottomSheetViewModel, activityCard)
-        }
+        BottomSheetContent(bottomSheetViewModel)
       }
     }
   )

@@ -24,4 +24,16 @@ class HomeViewModal @Inject constructor(
     }
   }
 
+  fun updateAvailableAmountAndAddBudget(id: Int, newAmount: Double, budget: Budget) {
+    viewModelScope.launch {
+      repository.updateAvailableAmountAndAddBudget(id, newAmount, budget)
+    }
+  }
+
+  fun updateBudgetAmountAndAddBudget(id: Int, newAmount: Double, budget: Budget) {
+    viewModelScope.launch {
+      repository.updateBudgetAmountAndAddBudget(id, newAmount, budget)
+    }
+  }
+
 }

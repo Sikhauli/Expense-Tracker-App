@@ -3,9 +3,7 @@ package com.example.expense_tracker_app
 import android.content.Context
 import androidx.room.Room
 import com.example.expense_tracker_app.database.BudgetDao
-import com.example.expense_tracker_app.database.SpendDao
 import com.example.expense_tracker_app.repository.BudgetRepository
-import com.example.expense_tracker_app.repository.SpendRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
