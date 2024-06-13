@@ -1,8 +1,11 @@
 package com.example.expense_tracker_app.viewModel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.expense_tracker_app.data.Budget
+import com.example.expense_tracker_app.data.BudgetCards
 import com.example.expense_tracker_app.repository.BudgetRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,6 +17,7 @@ enum class SaveResult {
   SUCCESS,
   FAILURE
 }
+
 @HiltViewModel
 class BottomSheetViewModel @Inject constructor(
   private val repository: BudgetRepository
@@ -31,8 +35,12 @@ class BottomSheetViewModel @Inject constructor(
   private val _isForEditBudget = MutableStateFlow(false)
   val isForEditBudget: StateFlow<Boolean> = _isForEditBudget
 
-  private val _budget = MutableStateFlow<Budget?>(null)
-  val budget: StateFlow<Budget?> = _budget
+//  private val _budgetCard = MutableStateFlow<BudgetCards?>(null)
+//  val budgetCard: MutableStateFlow<BudgetCards?> = _budgetCard
+
+  private val _budgetCard = MutableLiveData<BudgetCards>()
+  val budgetCard: LiveData<BudgetCards> get() = _budgetCard
+
 
   private val _allBudgets = MutableStateFlow<List<Budget>>(emptyList())
   val allBudgets: StateFlow<List<Budget>> = _allBudgets
@@ -53,24 +61,21 @@ class BottomSheetViewModel @Inject constructor(
     }
   }
 
-  fun loadBudget(id: Int) {
+  fun getBudgetCardById(id: Int) {
     viewModelScope.launch {
-      _budget.value = repository.getBudgetById(id)
+      _budgetCard.value = repository.getBudgetCardById(id)
     }
   }
 
-  fun saveBudget(budget: Budget) {
+  fun updateAvailableAmountAndAddBudget(id: Int?, newAmount: Double?, budget: Budget) {
     viewModelScope.launch {
-      try {
-        if (budget.id == 0) {
-          repository.insertBudget(budget)
-        } else {
-          repository.updateBudget(budget)
-        }
-        _saveResult.value = SaveResult.SUCCESS
-      } catch (e: Exception) {
-        _saveResult.value = SaveResult.FAILURE
-      }
+      repository.updateAvailableAmountAndAddBudget(id, newAmount, budget)
+    }
+  }
+
+  fun updateBudgetAmountAndAddBudget(id: Int?, newAmount: Double?, budget: Budget) {
+    viewModelScope.launch {
+      repository.updateBudgetAmountAndAddBudget(id, newAmount, budget)
     }
   }
 

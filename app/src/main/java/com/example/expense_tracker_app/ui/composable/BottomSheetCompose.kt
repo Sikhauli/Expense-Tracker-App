@@ -9,8 +9,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.expense_tracker_app.R
-import com.example.expense_tracker_app.data.ActivityCard
 import com.example.expense_tracker_app.data.Budget
+import com.example.expense_tracker_app.data.BudgetCards
 import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 import com.example.expense_tracker_app.viewModel.SaveResult.FAILURE
 import com.example.expense_tracker_app.viewModel.SaveResult.SUCCESS
@@ -26,13 +26,13 @@ import java.util.Locale
 @Composable
 fun BottomSheetContent(
   bottomSheetViewModel: BottomSheetViewModel = viewModel(),
+  activityCard: BudgetCards?,
 ) {
   val showBottomSheet by bottomSheetViewModel.showBottomSheet.collectAsState()
   val isForSpend by bottomSheetViewModel.isForSpend.collectAsState()
   val sheetState = rememberModalBottomSheetState()
   val scope = rememberCoroutineScope()
-  var amount by remember { mutableStateOf("") }
-  var availableAmount by remember { mutableStateOf("") }
+  var spendAmount by remember { mutableStateOf("") }
   var budget by remember { mutableStateOf("") }
   val saveResult by bottomSheetViewModel.saveResult.collectAsState()
   val currentDate = LocalDate.now()
@@ -83,8 +83,8 @@ fun BottomSheetContent(
         )
         if (isForSpend) {
           OutlinedTextField(
-            value = amount,
-            onValueChange = { amount = it },
+            value = spendAmount,
+            onValueChange = { spendAmount = it },
             label = { Text("Spending Amount") },
             modifier = Modifier.fillMaxWidth()
           )
@@ -104,36 +104,42 @@ fun BottomSheetContent(
           Button(
             onClick = {
               if (isForSpend) {
+//                For Spend
+                val updatedAvailableAmount = activityCard?.availableAmount?.minus(spendAmount.toDouble())
+                println("updatedAvailableAmount : ${activityCard?.availableAmount} - $spendAmount  = $updatedAvailableAmount")
                 val newSpend = date?.let {
                   Budget(
-//                    idd = activityCard.id,
-                    amount = budget.toDouble(),
-                    availableAmount = availableAmount.toDouble(),
+                    idd = activityCard?.id,
+                    amount = activityCard?.budget,
+                    availableAmount = updatedAvailableAmount,
                     date = it.toString(),
-                    name = "Spend",
-                    type = "gvhbjnk",
-                    idd = 1
-//                    type = activityCard.activityName
+                    name = "Spend Money",
+                    type = activityCard?.activityName,
                   )
                 }
                 if (newSpend != null) {
-                  bottomSheetViewModel.saveBudget(newSpend)
+                  bottomSheetViewModel.updateAvailableAmountAndAddBudget(
+                    activityCard?.id,
+                    updatedAvailableAmount,
+                    newSpend
+                  )
                 }
               } else {
+//                For Budget
+                val updatedNewBudget = activityCard?.budget?.plus(budget.toDouble())
+                println("updatedNewBudget : ${activityCard?.budget} + $budget  = $updatedNewBudget")
                 val newBudget = date?.let {
                   Budget(
-//                    idd = activityCard.id,
-                    amount = budget.toDouble(),
-                    availableAmount = availableAmount.toDouble(),
+                    idd = activityCard?.id,
+                    amount = updatedNewBudget,
+                    availableAmount = activityCard?.availableAmount,
                     date = it.toString(),
                     name = "New Deposit",
-                    type = "gvhbjnk",
-                    idd = 1
-//                    type = activityCard.activityName
+                    type = activityCard?.activityName,
                   )
                 }
                 if (newBudget != null) {
-                  bottomSheetViewModel.saveBudget(newBudget)
+                  bottomSheetViewModel.updateBudgetAmountAndAddBudget(activityCard?.id, updatedNewBudget, newBudget)
                 }
               }
               scope.launch {

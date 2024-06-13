@@ -1,4 +1,3 @@
-
 package com.example.expense_tracker_app.ui.composable.activity
 
 import ScrollableRecentActivityList
@@ -28,18 +27,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.expense_tracker_app.data.ActivityCard
 import com.example.expense_tracker_app.ui.composable.BottomSheetContent
-import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,13 +47,16 @@ import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
 fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavController?, itemId: String) {
   val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior()
 
-  println("itemId: $itemId")
+  LaunchedEffect(Unit) {
+    bottomSheetViewModel.getBudgetCardById(itemId.toInt())
+  }
+
+  val activityCard by bottomSheetViewModel.budgetCard.observeAsState()
 
   Scaffold(
     topBar = {
       TopAppBar(
-//        title = { Text(text = "${activityCard?.activityName} Wallet") },
-        title = {Text(text=  "title here")},
+        title = { Text(text = "${activityCard?.activityName} Wallet") },
         navigationIcon = {
           IconButton(onClick = { navController?.navigateUp() }) {
             Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Back")
@@ -79,16 +82,14 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
           horizontalAlignment = Alignment.CenterHorizontally
         ) {
           Text(
-//            text = "R${activityCard?.availableAmount}",
-            text = "100000",
+            text = "R${activityCard?.availableAmount}",
             fontSize = 70.sp,
             fontWeight = FontWeight.ExtraBold,
             fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleLarge
           )
           Text(
-//            text = "Budget in one month R${activityCard?.budget}",
-            text = "Budget in one month",
+            text = "Budget in one month is R${activityCard?.budget}",
             fontFamily = FontFamily.Serif,
             fontWeight = FontWeight.W300,
           )
@@ -118,8 +119,7 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
             modifier = Modifier.padding(vertical = 6.dp)
           )
           Text(
-//            text = "A wallet to manage expenses for purchasing ${activityCard?.activityName} in one month",
-            text = "",
+            text = "A wallet to manage expenses for ${activityCard?.activityName} in one month",
             fontFamily = FontFamily.Serif,
             fontSize = 12.sp,
             style = MaterialTheme.typography.displaySmall.copy(
@@ -179,7 +179,7 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
             )
           }
         }
-        BottomSheetContent(bottomSheetViewModel)
+        BottomSheetContent(bottomSheetViewModel, activityCard)
       }
     }
   )

@@ -9,5 +9,4 @@ import com.example.expense_tracker_app.database.BudgetDao
 @Database(entities = [BudgetCards::class, Budget::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
   abstract fun budgetDao(): BudgetDao
-  abstract fun spendDao(): SpendDao
 }

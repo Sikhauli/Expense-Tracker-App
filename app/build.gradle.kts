@@ -57,6 +57,7 @@ dependencies {
   implementation(libs.androidx.navigation.compose)
 
   implementation(libs.androidx.room.runtime.v242)
+  implementation(libs.androidx.runtime.livedata)
   kapt(libs.androidx.room.compiler.v242)
   implementation(libs.androidx.room.ktx.v242)
 

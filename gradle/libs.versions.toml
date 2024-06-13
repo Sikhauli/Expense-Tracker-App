@@ -28,6 +28,7 @@ material3Android = "1.2.1"
 roomKtxVersion = "2.6.1"
 roomRuntime = "2.6.1"
 toolsCore = "1.0.0-alpha08"
+runtimeLivedata = "1.6.7"
 
 [libraries]
 
@@ -69,6 +70,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 androidx-tools-core = { group = "androidx.privacysandbox.tools", name = "tools-core", version.ref = "toolsCore" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

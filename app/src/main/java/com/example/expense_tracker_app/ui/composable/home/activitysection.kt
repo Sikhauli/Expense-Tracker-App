@@ -15,6 +15,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -26,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 import androidx.navigation.NavHostController
-import com.example.expense_tracker_app.data.ActivityCard
+import com.example.expense_tracker_app.data.BudgetCards
 import com.example.expense_tracker_app.ui.utils.LimitedText
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.coil3.CoilImage
@@ -35,7 +37,7 @@ import com.skydoves.landscapist.coil3.CoilImage
 fun RowItems(
   navController: NavHostController,
   modifier: Modifier = Modifier,
-  item: ActivityCard,
+  item: BudgetCards,
   maxCharacters: Int = 10,
 ) {
 
@@ -85,19 +87,20 @@ fun RowItems(
         )
         Row {
           Text(
-            text = item.availableAmount.toString(),
+            text = item.budget.toString(),
             fontSize = 8.sp,
             fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleSmall
           )
           Text(
             text = " / ",
-            fontSize = 12.sp,
+            fontSize = 6.sp,
             fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleSmall
           )
+
           Text(
-            text = item.budget.toString(),
+            text = item.availableAmount.toString(),
             fontSize = 8.sp,
             fontFamily = FontFamily.Serif,
             style = MaterialTheme.typography.titleSmall
@@ -106,7 +109,7 @@ fun RowItems(
         Row(
           modifier = Modifier
             .fillMaxWidth()
-            .padding(5.dp),
+            .padding(1.dp),
           horizontalArrangement = Arrangement.End,
           verticalAlignment = Alignment.CenterVertically
         ) {
@@ -127,10 +130,11 @@ fun RowItems(
   }
 }
 
+
 @Composable
 fun RowScrollView(
   navController: NavHostController,
-  items:List<ActivityCard>,
+  items:List<BudgetCards>,
   maxCharacters: Int = 10,
 ) {
   items.forEach { item ->

@@ -22,10 +22,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.os.bundleOf
-import androidx.navigation.NavController
-import com.example.expense_tracker_app.data.ActivityCard
 
 @Composable
 fun MenuSample() {

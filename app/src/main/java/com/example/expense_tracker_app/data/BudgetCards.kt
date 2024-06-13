@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "budgets_cards")
 data class BudgetCards(
-  @PrimaryKey(autoGenerate = true) val id: Int? = 0,
+  @PrimaryKey(autoGenerate = true) val id: Int = 0,
   val img: String,
   val activityName: String,
   val availableAmount: Double,

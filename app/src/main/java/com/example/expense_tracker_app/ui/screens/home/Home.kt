@@ -9,20 +9,21 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.core.os.bundleOf
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.expense_tracker_app.data.ActivityCardData
 import com.example.expense_tracker_app.ui.composable.home.ProfileCompletion
 import com.example.expense_tracker_app.ui.composable.home.RowScrollView
 import com.example.expense_tracker_app.ui.composable.home.UserInfo
 import com.example.expense_tracker_app.ui.composable.home.Wallet
+import com.example.expense_tracker_app.viewModel.HomeViewModal
 
 @Composable
-fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
-
-
+fun Home(modifier: Modifier = Modifier, navController: NavHostController, homeViewModel: HomeViewModal ) {
   Column(
     modifier = modifier
       .fillMaxSize()
@@ -30,14 +31,20 @@ fun Home(modifier: Modifier = Modifier, navController: NavHostController) {
   ) {
     UserInfo()
     Wallet()
-    ActivitiesCategoryRow(navController)
+    ActivitiesCategoryRow(navController, homeViewModel)
     ProfileCompletion()
     ScrollableRecentActivityList()
   }
 }
 
+
+
 @Composable
-fun ActivitiesCategoryRow(navController: NavHostController) {
+fun ActivitiesCategoryRow(navController: NavHostController, homeViewModel: HomeViewModal) {
+  LaunchedEffect(Unit) {
+    homeViewModel.getAllActivityCards()
+  }
+  val cardsData by homeViewModel.activityCards.observeAsState(initial = emptyList())
   Row(
     modifier = Modifier
       .padding(vertical = 10.dp)
@@ -46,7 +53,7 @@ fun ActivitiesCategoryRow(navController: NavHostController) {
   ){
     RowScrollView(
       navController = navController,
-      items = ActivityCardData,
+      items = cardsData,
       maxCharacters = 10
     )
   }

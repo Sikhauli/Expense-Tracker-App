@@ -21,24 +21,13 @@ object AppModule {
     return Room.databaseBuilder(
       context.applicationContext,
       AppDatabase::class.java,
-      "budget_database"
+      "expenses_tracker_database"
     ).build()
   }
 
   @Provides
   fun provideBudgetDao(database: AppDatabase): BudgetDao {
     return database.budgetDao()
-  }
-
-  @Provides
-  fun provideSpendDao(database: AppDatabase): SpendDao {
-    return database.spendDao()
-  }
-
-  @Provides
-  @Singleton
-  fun provideSpendRepository(spendDao: SpendDao): SpendRepository {
-    return SpendRepository(spendDao)
   }
 
   @Provides
