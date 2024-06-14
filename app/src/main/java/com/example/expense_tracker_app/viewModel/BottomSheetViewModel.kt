@@ -8,6 +8,8 @@ import com.example.expense_tracker_app.data.Budget
 import com.example.expense_tracker_app.data.BudgetCards
 import com.example.expense_tracker_app.repository.BudgetRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -35,15 +37,16 @@ class BottomSheetViewModel @Inject constructor(
   private val _isForEditBudget = MutableStateFlow(false)
   val isForEditBudget: StateFlow<Boolean> = _isForEditBudget
 
-//  private val _budgetCard = MutableStateFlow<BudgetCards?>(null)
-//  val budgetCard: MutableStateFlow<BudgetCards?> = _budgetCard
-
   private val _budgetCard = MutableLiveData<BudgetCards>()
   val budgetCard: LiveData<BudgetCards> get() = _budgetCard
 
-
   private val _allBudgets = MutableStateFlow<List<Budget>>(emptyList())
   val allBudgets: StateFlow<List<Budget>> = _allBudgets
+
+
+  private val _budgetDataByType = MutableStateFlow<List<Budget>>(emptyList())
+  val budgetDataByType: StateFlow<List<Budget>> = _budgetDataByType
+
 
   fun showSheet(isForSpend: Boolean, isForEditBudget: Boolean) {
     _isForSpend.value = isForSpend
@@ -55,9 +58,9 @@ class BottomSheetViewModel @Inject constructor(
     _showBottomSheet.value = false
   }
 
-  fun loadAllBudgets() {
-    viewModelScope.launch {
-      _allBudgets.value = repository.getAllBudgets()
+  fun getBudgetByType(type: String?) {
+    viewModelScope.launch(Dispatchers.IO) {
+      _budgetDataByType.value = repository.getBudgetByType(type)
     }
   }
 
@@ -73,9 +76,9 @@ class BottomSheetViewModel @Inject constructor(
     }
   }
 
-  fun updateBudgetAmountAndAddBudget(id: Int?, newAmount: Double?, budget: Budget) {
+  fun updateBudgetAmountAndAddBudget(id: Int?, newAmount: Double?, availableAmount: Double, budget: Budget) {
     viewModelScope.launch {
-      repository.updateBudgetAmountAndAddBudget(id, newAmount, budget)
+      repository.updateBudgetAmountAndAddBudget(id, newAmount, availableAmount, budget)
     }
   }
 

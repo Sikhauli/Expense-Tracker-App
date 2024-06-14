@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "budgets")
 data class Budget(
-  @PrimaryKey(autoGenerate = true) val id: Int? = 0,
+  @PrimaryKey(autoGenerate = true) val id: Int = 0,
   val idd: Int? = 0,
   val amount: Double?,
   val availableAmount: Double?,
@@ -13,3 +13,5 @@ data class Budget(
   val name: String,
   val type: String?,
 )
+
+

@@ -5,15 +5,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.expense_tracker_app.R
 import com.example.expense_tracker_app.data.Budget
 import com.example.expense_tracker_app.data.BudgetCards
 import com.example.expense_tracker_app.viewModel.BottomSheetViewModel
-import com.example.expense_tracker_app.viewModel.SaveResult.FAILURE
-import com.example.expense_tracker_app.viewModel.SaveResult.SUCCESS
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -36,9 +32,8 @@ fun BottomSheetContent(
   var budget by remember { mutableStateOf("") }
   val saveResult by bottomSheetViewModel.saveResult.collectAsState()
   val currentDate = LocalDate.now()
-  val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-  val formattedDate = formatter.format(Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()))
-  val date = formatter.parse(formattedDate)
+  val formatter = SimpleDateFormat("EEE MMM dd", Locale.getDefault())
+  val date = formatter.format(Date.from(currentDate.atStartOfDay(ZoneId.systemDefault()).toInstant()))
 
   if (saveResult != null) {
     LaunchedEffect(Unit) {
@@ -54,8 +49,6 @@ fun BottomSheetContent(
       sheetState.hide()
     }
   }
-
-  println("date: $date")
 
   val isImeVisible = WindowInsets.isImeVisible
   val navigationBottomHeight = WindowInsets.systemBars.asPaddingValues().calculateBottomPadding()
@@ -104,42 +97,37 @@ fun BottomSheetContent(
           Button(
             onClick = {
               if (isForSpend) {
-//                For Spend
+                //For Spend
                 val updatedAvailableAmount = activityCard?.availableAmount?.minus(spendAmount.toDouble())
-                println("updatedAvailableAmount : ${activityCard?.availableAmount} - $spendAmount  = $updatedAvailableAmount")
-                val newSpend = date?.let {
-                  Budget(
-                    idd = activityCard?.id,
-                    amount = activityCard?.budget,
-                    availableAmount = updatedAvailableAmount,
-                    date = it.toString(),
-                    name = "Spend Money",
-                    type = activityCard?.activityName,
-                  )
-                }
-                if (newSpend != null) {
-                  bottomSheetViewModel.updateAvailableAmountAndAddBudget(
-                    activityCard?.id,
-                    updatedAvailableAmount,
-                    newSpend
-                  )
-                }
+                val newSpend = Budget(
+                  idd = activityCard?.id,
+                  amount = activityCard?.budget,
+                  availableAmount = updatedAvailableAmount,
+                  date = date,
+                  name = "Spend Money",
+                  type = activityCard?.activityName,
+                )
+                println("newSpend:  $newSpend")
+                bottomSheetViewModel.updateAvailableAmountAndAddBudget(
+                  activityCard?.id,
+                  updatedAvailableAmount,
+                  newSpend
+                )
               } else {
-//                For Budget
+                //For Budget
                 val updatedNewBudget = activityCard?.budget?.plus(budget.toDouble())
-                println("updatedNewBudget : ${activityCard?.budget} + $budget  = $updatedNewBudget")
-                val newBudget = date?.let {
-                  Budget(
-                    idd = activityCard?.id,
-                    amount = updatedNewBudget,
-                    availableAmount = activityCard?.availableAmount,
-                    date = it.toString(),
-                    name = "New Deposit",
-                    type = activityCard?.activityName,
-                  )
-                }
-                if (newBudget != null) {
-                  bottomSheetViewModel.updateBudgetAmountAndAddBudget(activityCard?.id, updatedNewBudget, newBudget)
+                val availableAmount = activityCard?.availableAmount?.plus(budget.toDouble())
+                val newBudget = Budget(
+                  idd = activityCard?.id,
+                  amount = updatedNewBudget,
+                  availableAmount = availableAmount,
+                  date = date,
+                  name = "New Deposit",
+                  type = activityCard?.activityName,
+                )
+                println("newBudget:  $newBudget")
+                if (availableAmount != null) {
+                  bottomSheetViewModel.updateBudgetAmountAndAddBudget(activityCard.id, updatedNewBudget, availableAmount, newBudget)
                 }
               }
               scope.launch {
@@ -162,21 +150,6 @@ fun BottomSheetContent(
           }
         }
       }
-    }
-  }
-  if (saveResult != null) {
-    val message = when (saveResult) {
-      SUCCESS -> stringResource(id = R.string.success_message)
-      FAILURE -> stringResource(id = R.string.failure_message)
-      null -> TODO()
-    }
-    Snackbar(
-      modifier = Modifier.padding(0.dp, 0.dp, 10.dp, 10.dp)
-    ) {
-      Text(
-        text = message,
-        modifier = Modifier.padding(8.dp)
-      )
     }
   }
 }

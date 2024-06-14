@@ -22,7 +22,9 @@ object AppModule {
       context.applicationContext,
       AppDatabase::class.java,
       "expenses_tracker_database"
-    ).build()
+    )
+      .fallbackToDestructiveMigration()
+      .build()
   }
 
   @Provides

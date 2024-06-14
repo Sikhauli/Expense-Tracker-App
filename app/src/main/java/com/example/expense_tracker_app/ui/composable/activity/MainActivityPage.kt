@@ -50,8 +50,15 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
   LaunchedEffect(Unit) {
     bottomSheetViewModel.getBudgetCardById(itemId.toInt())
   }
-
   val activityCard by bottomSheetViewModel.budgetCard.observeAsState()
+
+  LaunchedEffect(activityCard) {
+    activityCard?.activityName?.let { activityName ->
+      bottomSheetViewModel.getBudgetByType(activityName)
+    }
+  }
+
+  val allBudgetByType by bottomSheetViewModel.budgetDataByType.collectAsState()
 
   Scaffold(
     topBar = {
@@ -128,7 +135,11 @@ fun ActivityPage(bottomSheetViewModel: BottomSheetViewModel, navController: NavC
           )
         }
         Spacer(modifier = Modifier.height(10.dp))
-        ScrollableRecentActivityList()
+        Row() {
+          ScrollableRecentActivityList(
+            allBudgetByType,
+          )
+        }
       }
       Column(
         modifier = Modifier

@@ -10,11 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.expense_tracker_app.ui.composable.home.ProfileCompletion
 import com.example.expense_tracker_app.ui.composable.home.RowScrollView
@@ -24,6 +24,9 @@ import com.example.expense_tracker_app.viewModel.HomeViewModal
 
 @Composable
 fun Home(modifier: Modifier = Modifier, navController: NavHostController, homeViewModel: HomeViewModal ) {
+
+  val allBudgets by homeViewModel.allBudgets.collectAsState()
+
   Column(
     modifier = modifier
       .fillMaxSize()
@@ -33,10 +36,11 @@ fun Home(modifier: Modifier = Modifier, navController: NavHostController, homeVi
     Wallet()
     ActivitiesCategoryRow(navController, homeViewModel)
     ProfileCompletion()
-    ScrollableRecentActivityList()
+    ScrollableRecentActivityList(
+      allBudgets,
+    )
   }
 }
-
 
 
 @Composable

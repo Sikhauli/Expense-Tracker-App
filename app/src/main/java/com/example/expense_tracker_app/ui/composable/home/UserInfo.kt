@@ -26,7 +26,7 @@ import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
 
 
 @Composable
-fun UserInfo(modifier: Modifier = Modifier) {
+fun UserInfo() {
   Row(
     modifier = Modifier
       .fillMaxWidth()

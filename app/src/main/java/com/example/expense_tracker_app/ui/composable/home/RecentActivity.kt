@@ -4,23 +4,21 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AttachMoney
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.expense_tracker_app.ui.screens.home.Home
-import com.example.expense_tracker_app.ui.theme.ExpensetrackerappTheme
+import com.example.expense_tracker_app.data.Budget
 
 @Composable
 fun RecentActivityItem(
@@ -86,8 +84,8 @@ fun RecentActivityItem(
 }
 
 @Composable
-fun ScrollableRecentActivityList() {
-  Column{
+fun ScrollableRecentActivityList(budgets: List<Budget>) {
+  Column {
     val scrollState = rememberScrollState()
     Row(
       modifier = Modifier
@@ -106,33 +104,26 @@ fun ScrollableRecentActivityList() {
         .fillMaxSize()
         .verticalScroll(scrollState)
     ) {
-      val recentActivities = listOf(
-        Triple("Deposit", "2024-05-31", "You have deposited $500"),
-        Triple("Withdrawal", "2024-05-30", "You have withdrawn $200"),
-        Triple("Transfer", "2024-05-29", "You have transferred $300 to Alice"),
-        Triple("Deposit", "2024-05-28", "You have deposited $150"),
-        Triple("Deposit", "2024-05-31", "You have deposited $500"),
-        Triple("Withdrawal", "2024-05-30", "You have withdrawn $200"),
-        Triple("Transfer", "2024-05-29", "You have transferred $300 to Alice"),
-        Triple("Deposit", "2024-05-28", "You have deposited $150")
-      )
-
-      recentActivities.forEach { (title, date, description) ->
-        RecentActivityItem(
-          icon = Icons.Default.Home,
-          title = title,
-          date = date,
-          description = description
-        )
+      if (budgets.isEmpty()) {
+        Box(
+          modifier = Modifier
+            .fillMaxSize(),
+          contentAlignment = Alignment.Center
+        ) {
+          Text("No budgets available")
+        }
+      } else {
+        budgets.forEach { budget ->
+          budget.type?.let {
+            RecentActivityItem(
+              icon = Icons.Default.AttachMoney,
+              title = budget.name,
+              date = budget.date,
+              description = it
+            )
+          }
+        }
       }
     }
-  }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ScrollableRecentActivityListPreview() {
-  ExpensetrackerappTheme {
-    ScrollableRecentActivityList()
   }
 }
